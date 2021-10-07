@@ -46,15 +46,14 @@
     flex-direction: column;
     margin-bottom: 35px;
 
+    &-required {
+      color: #ff5500;
+    }
+
     &-label {
       font-size: 14px;
       margin-bottom: 14px;
       position: relative;
-
-      &:required:after {
-        content: "*";
-        color: #ff5500;
-      }
     }
 
     &-value {

@@ -74,7 +74,6 @@ const BillingInfoForm = (props) => {
           value={data["district"]}
           onChange={handleChange}
           editMode={editMode}
-          required
         />
         <FormInput
           label="Settlement"
@@ -82,7 +81,6 @@ const BillingInfoForm = (props) => {
           value={data["settlement"]}
           onChange={handleChange}
           editMode={editMode}
-          required
         />
         <FormInput
           label="Street"
@@ -145,7 +143,11 @@ const FormInput = (props) => {
 
   return (
     <div className="form__item">
-      <span className="form__item-label">{label}</span>
+      <span className="form__item-label">
+        {label}
+        {required && <span className="form__item-required"> *</span>}
+      </span>
+
       {editMode ? (
         <input
           className="form__item-input"
