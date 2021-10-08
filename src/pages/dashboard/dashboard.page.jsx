@@ -1,5 +1,10 @@
 import React from "react";
+import "./dashboard.styles.scss";
 
-const DashboardPage = () => <h1>DASHBOARD PAGE</h1>;
 
+const DashboardPage = () => (
+  <div className="dashboard">
+   <h1>DASHBOARD</h1>
+  </div>
+);
 export default DashboardPage;

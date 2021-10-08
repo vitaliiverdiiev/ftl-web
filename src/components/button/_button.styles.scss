@@ -1,0 +1,161 @@
+
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-width: 160px;
+  padding: 10px 16px;
+  height: 50px;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 4px;
+  border: 2px solid $clr-black;
+  outline: none;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 18px;
+  gap: 10px;
+
+  &-reversed {
+    flex-direction: row-reverse;
+  }
+
+  //   &-success {
+  //     color: $clr-white;
+  //     background-color: $clr-primary-main;
+  //     border: none;
+  //     &:hover,
+  //     &:active {
+  //       background-color: $clr-primary-hover;
+  //     }
+  //     &:disabled {
+  //       background-color: $clr-disabled;
+  //       & > div {
+  //         opacity: 0.2;
+  //       }
+  //     }
+  //     &-outline {
+  //       background-color: #fff;
+  //       color: $clr-primary-main;
+  //       border: 2px solid $clr-primary-main;
+  //     }
+  //   }
+  //   &-error {
+  //     color: $clr-white;
+  //     background-color: $clr-error-main;
+  //     &:hover,
+  //     &:active {
+  //       background-color: $clr-error-hover;
+  //     }
+  //     &:disabled {
+  //       background-color: $clr-disabled;
+  //       & > div {
+  //         color: red;
+  //         opacity: 1;
+  //       }
+  //     }
+  //   }
+  //   &-secondary {
+  //     color: $clr-white;
+  //     background-color: $clr-secondary-main;
+  //     &:hover,
+  //     &:active {
+  //       background-color: $clr-secondary-hover;
+  //     }
+  //     &:disabled {
+  //       background-color: $clr-disabled;
+  //       & > div {
+  //         opacity: 0.2;
+  //       }
+  //     }
+  //   }
+  //   &-secondary {
+  //     @include buttonMain($clr-secondary-main);
+
+  //     &:hover,
+  //     &:active {
+  //       @include buttonHoverActive($clr-secondary-hover);
+  //     }
+  //     &:disabled {
+  //       @include buttonDisabled($clr-disabled);
+  //     }
+  //     &-outline {
+  //       @include buttonOutline($clr-secondary-main);
+  //     }
+  //   }
+
+  @mixin buttonStateAndColor(
+    $state,
+    $clr-secondary-main,
+    $clr-secondary-hover,
+    $clr-disabled
+  ) {
+    &-#{$state} {
+      @include buttonMain($clr-secondary-main);
+
+      &:hover,
+      &:active {
+        @include buttonHoverActive($clr-secondary-hover);
+      }
+      &:disabled {
+        @include buttonDisabled($clr-disabled);
+      }
+      &-outline {
+        @include buttonOutline($clr-secondary-main);
+      }
+    }
+  }
+
+  @mixin buttonMain($bg-color) {
+    color: $clr-white;
+    background-color: $bg-color;
+    border: none;
+  }
+
+  @mixin buttonHoverActive($bg-color) {
+    background-color: $bg-color;
+  }
+
+  @mixin buttonDisabled($bg-color) {
+    background-color: $bg-color;
+    & > div {
+      opacity: 0.5;
+    }
+  }
+
+  @mixin buttonOutline($color) {
+    background-color: #fff;
+    color: $color;
+    border: 2px solid $color;
+  }
+
+  @include buttonStateAndColor(
+    "success",
+    $clr-primary-main,
+    $clr-primary-hover,
+    $clr-disabled
+  );
+  @include buttonStateAndColor(
+    "secondary",
+    $clr-secondary-main,
+    $clr-secondary-hover,
+    $clr-disabled
+  );
+  @include buttonStateAndColor(
+    "error",
+    $clr-error-main,
+    $clr-error-hover,
+    $clr-disabled
+  );
+
+  &-icon {
+    width: 20px;
+    height: 20px;
+    background-color: $clr-error-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
