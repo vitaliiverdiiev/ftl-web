@@ -4,6 +4,4 @@ const capitalizeFirstLetters = (word) =>
     .split(/(?=[A-Z])/)
     .join(" ");
 
-export {
-    capitalizeFirstLetters
-}
+export { capitalizeFirstLetters };

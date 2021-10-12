@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FormInput = (props) => 
-      <div className="form__item">
+      <div className={`form__item ${props.classes}`}>
         <span className="form__item-label">
           {props.label}
           {props.required && <span className="form__item-required"> *</span>}

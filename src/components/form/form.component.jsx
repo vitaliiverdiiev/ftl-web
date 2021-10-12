@@ -26,7 +26,8 @@ const BillingInfoForm = (props) => {
             type="button"
             onClick={() => setEditMode(true)}
           >
-            <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+            {/* <i className="fa fa-pencil-square-o" aria-hidden="true"></i> */}
+            <i class="far fa-edit"></i>
           </button>
         )}
       </div>

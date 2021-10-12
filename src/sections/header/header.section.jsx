@@ -18,6 +18,9 @@ const Header = () => (
       <NavLink className="nav__link" to="/buttons">
         Buttons
       </NavLink>
+      <NavLink className="nav__link" to="/add-billing-method">
+        Add billing method
+      </NavLink>
     </nav>
   </header>
 );

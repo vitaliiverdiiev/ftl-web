@@ -1,0 +1,177 @@
+.rc-slider {
+    margin: 55px 0 0 0;
+  
+    position: relative;
+    height: 14px;
+    padding: 5px 0;
+    width: 100%;
+    border-radius: 6px;
+    touch-action: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: "Fira Sans";
+  
+    &-rail {
+      position: absolute;
+      width: 100%;
+      background-color: #dedede;
+      top: 0;
+      height: 12px;
+      border-radius: 6px;
+    }
+  
+    &-track {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 12px;
+      background-color: #007bff;
+    }
+  
+    &-handle {
+      position: absolute;
+      width: 2px;
+      height: 20px;
+      cursor: pointer;
+      // cursor: -webkit-grab;
+      // cursor: grab;
+      margin-top: -8px;
+      border-radius: 10px;
+      border: solid 2px #007bff;
+      background-color: #007bff;
+      touch-action: pan-x;
+    }
+  
+    &-mark {
+      position: absolute;
+      top: 18px;
+      left: 0;
+      width: 100%;
+      font-size: 12px;
+    }
+  
+    &-mark-text {
+      position: absolute;
+      display: inline-block;
+      vertical-align: middle;
+      text-align: center;
+      cursor: pointer;
+      color: #999;
+      bottom: 30px;
+      margin-left: 2%;
+  
+      &:last-child {
+        margin-left: -1%;
+      }
+    }
+  
+    &-mark-text-active {
+      color: #666;
+    }
+  
+    &-step {
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      background: transparent;
+    }
+  
+    &-disabled &-mark-text,
+    &-disbaled &-dot {
+      cursor: not-allowed !important;
+    }
+  
+    &-vertical {
+      width: 14px;
+      height: 100%;
+      padding: 0 5px;
+    }
+  
+    &-vertical &-rail {
+      height: 100%;
+      width: 4px;
+    }
+  
+    &-vertical &-track {
+      left: 5px;
+      bottom: 0;
+      width: 4px;
+    }
+    &-vertical &-handle {
+      margin-left: -5px;
+      touch-action: pan-y;
+    }
+    &-vertical &-mark {
+      top: 0;
+      left: 18px;
+      height: 100%;
+    }
+    &-vertical &-step {
+      height: 100%;
+      width: 4px;
+    }
+    &-vertical &-dot {
+      left: 2px;
+      margin-bottom: -4px;
+    }
+    &-vertical &-dot:first-child {
+      margin-bottom: -4px;
+    }
+    &-vertical &-dot:last-child {
+      margin-bottom: -4px;
+    }
+    &-tooltip-zoom-down-enter,
+    &-tooltip-zoom-down-appear {
+      animation-duration: 0.3s;
+      animation-fill-mode: both;
+      display: block !important;
+      animation-play-state: paused;
+    }
+    &-tooltip-zoom-down-leave {
+      animation-duration: 0.3s;
+      animation-fill-mode: both;
+      display: block !important;
+      animation-play-state: paused;
+    }
+    &-tooltip-zoom-down-enter &-tooltip-zoom-down-enter-active,
+    &-tooltip-zoom-down-appear &-tooltip-zoom-down-appear-active {
+      animation-name: rcSliderTooltipZoomDownIn;
+      animation-play-state: running;
+    }
+    &-tooltip-zoom-down-leave &-tooltip-zoom-down-leave-active {
+      animation-name: rcSliderTooltipZoomDownOut;
+      animation-play-state: running;
+    }
+    &-tooltip-zoom-down-enter,
+    &-tooltip-zoom-down-appear {
+      transform: scale(0, 0);
+      animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    &-tooltip-zoom-down-leave {
+      animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    }
+  }
+  
+  @keyframes rcSliderTooltipZoomDownIn {
+    0% {
+      opacity: 0;
+      transform-origin: 50% 100%;
+      transform: scale(0, 0);
+    }
+    100% {
+      transform-origin: 50% 100%;
+      transform: scale(1, 1);
+    }
+  }
+  @keyframes rcSliderTooltipZoomDownOut {
+    0% {
+      transform-origin: 50% 100%;
+      transform: scale(1, 1);
+    }
+    100% {
+      opacity: 0;
+      transform-origin: 50% 100%;
+      transform: scale(0, 0);
+    }
+  }
+  

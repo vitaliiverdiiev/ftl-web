@@ -1,0 +1,32 @@
+.chart-box {
+    padding: 25px 27px;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  
+  .tooltippy {
+    font-family: "Fira Sans";
+    font-size: 13px;
+    line-height: 18px;
+    width: 127px;
+    background-color: #fff;
+    border: 1px solid #007bff;
+    padding: 8px 13px;
+    border-radius: 10px;
+  }
+  
+  .amount-container {
+    display: flex;
+    justify-content: space-between;
+    color: #2c2c2c;
+    font-weight: 700;
+  }
+  
+  .date-container {
+    text-align: center;
+  }
+  
+  hr {
+    border-color: #c4c4c4;
+  }
+  

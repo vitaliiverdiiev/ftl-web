@@ -1,0 +1,72 @@
+@import "../../assets/styles/colors.vars.scss";
+@import "../../assets/styles/fonts.styles.scss";
+
+div.add-billing-method-page {
+
+    .card-header {
+        font-family: "Fira Sans", sans-serif;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        background-color: #fff;
+
+        &:before {
+            content: "";
+            width: calc(100% -60px);
+            height: 2px;
+            background-color: #DEDEDE;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 30px;
+            right: 30px;
+        }
+    }
+
+    .number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        color: #fff;
+        border-radius: 50%;
+        margin-right: 16px;
+        background-color: lightgrey;
+
+        &--active {
+            background-color: green;
+        }
+    }
+
+    .header-part {
+        position: relative;
+        padding: 12px 24px;
+        background-color: #fff;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+    }
+
+    .card-body .form {
+        // display: grid;
+        // grid-template-columns: 1fr 1fr 1fr;
+        // grid-gap: 21px;
+    }
+
+    .step-header {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 18px;
+        color: #1C1C1C;
+        margin-bottom: 17px;    
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
