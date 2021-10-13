@@ -1,0 +1,27 @@
+.form-select {
+  position: relative;
+
+  &:after {
+    content: "\f078";
+    position: absolute;
+    right: 0.75rem;
+    font-size: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: "Font Awesome 5 Free";
+    font-weight: 700;
+    color: #8f8f8f;
+  }
+}
+
+select.form-control {
+  appearance: none;
+}
+
+.form-label {
+  margin-bottom: 10px;
+}
+
+.form-required {
+  color: red;
+}

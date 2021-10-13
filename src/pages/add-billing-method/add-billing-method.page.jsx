@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import FormInput from "../../components/form-input/form-input.component";
+import React, { useEffect, useState } from "react";
+import FormInput from "../../COMPONENTS/form-input/form-input.component";
+import FormSelect from "../../COMPONENTS/form-select/form-select.component";
 import Button from "../../components/button/button.component";
 import "./add-billing-method.styles.scss";
-import CustomFormField from "../../components/custom-form-field/custom-form-field.component";
-import { countries } from "../../utils/data/countries";
 
 const chevronLeftIcon = (
   <i className="fa fa-chevron-left" aria-hidden="true"></i>
@@ -12,7 +11,7 @@ const chevronRightIcon = (
   <i className="fa fa-chevron-right" aria-hidden="true"></i>
 );
 
-const AddBillingMethodPage = () => {
+const AddBillingMethodPage = (props) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [step] = useState([
     {
@@ -29,14 +28,81 @@ const AddBillingMethodPage = () => {
     },
   ]);
 
-  function handleSteps(e) {
-    e.target.innerText.toLowerCase() === "prev" &&
-      currentStep !== 1 &&
+  const checkIfRequiredFieldsFilled = () => {
+    const checker = [];
+    document.querySelectorAll("[required]").forEach((field) => {
+      field.value.length > 0 ? checker.push(true) : checker.push(false);
+    });
+
+    if (!checker.includes(false)) {
+      return setRequiredFilled(false);
+    }
+
+    return setRequiredFilled(true);
+  };
+
+  const [newPaymentMethod, setNewPaymentMethod] = useState({
+    paymentMethod: {
+      paymentMethod: "",
+      createAName: "",
+      iban: "",
+      bankName: "",
+      fullName: "",
+      country: "",
+      cityRegion: "",
+      district: "",
+      zip: "",
+      street: "",
+      individualTaxNumber: "",
+    },
+    bankOfBeneficiary: {
+      country: "",
+      cityRegion: "",
+      district: "",
+      zip: "",
+      settlement: "",
+      street: "",
+      swift: "",
+      iban: "",
+    },
+    correspondentBank: {
+      country: "",
+      cityRegion: "",
+      district: "",
+      zip: "",
+      settlement: "",
+      street: "",
+    },
+  });
+
+  const handleChange = (e, step) => {
+    const { name, value } = e.target;
+    setNewPaymentMethod({
+      ...newPaymentMethod,
+      [step]: {
+        ...newPaymentMethod[step],
+        [name]: value,
+      },
+    });
+  };
+
+  const [requiredFilled, setRequiredFilled] = useState(false);
+
+  const stepHandler = (e) => {
+    e.preventDefault();
+
+    if (e.target.innerText.toLowerCase() === "prev" && currentStep !== 1)
       setCurrentStep(currentStep - 1);
-    e.target.innerText.toLowerCase() === "next" &&
-      currentStep !== step.length &&
+    if (
+      e.target.innerText.toLowerCase() === "next" &&
+      currentStep < step.length
+    )
       setCurrentStep(currentStep + 1);
-  }
+  };
+
+  useEffect(() => {
+    checkIfRequiredFieldsFilled();
+  }, ...document.querySelectorAll(["required"]));
 
   return (
     <div className="card">
@@ -54,108 +120,97 @@ const AddBillingMethodPage = () => {
         ))}
       </div>
       <div className="card-body">
-        <form className="form" action="#" method="post">
-          <h3 className="form-header">{step[currentStep - 1].stepTitle}</h3>
+        <form action="#">
           {currentStep === 1 && (
             <>
-              <div className="row">
-                <div className="col-3">
-                  <label className="form-label">Payment method</label>
-                  <select className="form-select">
-                    <option value="bank account">Bank account</option>
-                    <option value="cash">Cash</option>
-                  </select>
-                </div>
-                <div className="col-3">
-                  <label className="form-label">Create a name</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    value="Ukrsyb FOP"
+              <div className="form-card form-card-1">
+                <div className="row mb-3">
+                  <FormSelect
+                    wrapperClasses="col-3"
+                    label="Payment method"
+                    options={["Bank account", "Cash"]}
+                    name="paymentMethod"
+                    onchange={(e) => handleChange(e, "paymentMethod")}
+                    required
                   />
-                </div>
-                <div className="col-3">
-                  <label className="form-label">IBAN</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    placeholder="__ __ __ __ __ __ __ __"
+                  <FormInput
+                    wrapperClasses="col-3"
+                    label="Create a name"
+                    placeholder="Ukrsyb FOP"
+                    name="createAName"
+                    onchange={(e) => handleChange(e, "paymentMethod")}
                   />
-                </div>
-                <div className="col-3">
-                  <label className="form-label">Bank name</label>
-                  <select className="form-select">
-                    <option value="ukrsybbank">Ukrsybbank</option>
-                    <option value="monobank">Monobank</option>
-                    <option value="privat bank">Privat bank</option>
-                  </select>
-                </div>
-              </div>
-              <div className="row mt-5">
-                <div className="col-6">
-                  <label className="form-label">
-                    Full name (latin Ukrainian language)
-                  </label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    value="Dmytro  Anatoliievych Makarenko"
-                  />
-                </div>
-                <div className="col-3">
-                  <label className="form-label">Country</label>
-                  <select className="form-select">
-                    {countries.map((option) => (
-                      <option
-                        key={option.code}
-                        value={option.name}
-                        selected={option.name === "Ukraine" && option.name}
-                      >
-                        {option.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col-3">
-                  <label className="form-label">City(region)</label>
-                  <select className="form-select">
-                    <option value="kyiv" selected>
-                      Kyiv
-                    </option>
-                    <option value="lviv">Lviv</option>
-                    <option value="odessa">Odessa</option>
-                  </select>
-                </div>
-              </div>
-              <div className="row mt-5">
-                <div className="col-3">
-                  <label className="form-label">District</label>
-                  <select className="form-select">
-                    <option value="pecherski">Pecherski</option>
-                    <option value="golosievski">Golosievski</option>
-                    <option value="shevchenkovski" selected>
-                      Shevchenkovski
-                    </option>
-                  </select>
-                </div>
-                <div className="col-3">
-                  <label className="form-label">ZIP</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    placeholder="_ _ _ _ _"
-                  />
-                </div>
-                <div className="col-3">
-                  <label className="form-label">Street</label>
-                  <input className="form-control" type="text" placeholder="" />
-                </div>
-                <div className="col-3">
-                  <label className="form-label">Individual tax number</label>
-                  <input
-                    className="form-control"
-                    type="text"
+                  <FormInput
+                    wrapperClasses="col-3"
+                    label="IBAN"
                     placeholder="_ _ _ _ _ _ _ _"
+                    name="iban"
+                    onchange={(e) => handleChange(e, "paymentMethod")}
+                  />
+                  <FormSelect
+                    wrapperClasses="col-3"
+                    label="Bank name"
+                    options={["Ukrsyb bank", "Monobank", "Privat bank"]}
+                    name="bankName"
+                    onchange={(e) => handleChange(e, "paymentMethod")}
+                  />
+                </div>
+                <div className="row mb-3">
+                  <FormInput
+                    wrapperClasses="col-6"
+                    label="Full name (latin Ukrainian language)"
+                    placeholder="Dmytro Anatoliievych Makarenko"
+                    name="fullName"
+                    onchange={(e) => handleChange(e, "paymentMethod")}
+                  />
+                  <FormSelect
+                    wrapperClasses="col-3"
+                    label="Country"
+                    options={["Ukraine", "Denmark", "Japan"]}
+                    name="country"
+                    onchange={(e) => handleChange(e, "paymentMethod")}
+                    required
+                  />
+                  <FormSelect
+                    wrapperClasses="col-3"
+                    label="City (region)"
+                    options={["Kyiv", "Odessa", "Lviv"]}
+                    name="cityRegion"
+                    onchange={(e) => handleChange(e, "paymentMethod")}
+                    required
+                  />
+                </div>
+                <div className="row mb-3">
+                  <FormSelect
+                    wrapperClasses="col-3"
+                    label="District"
+                    options={["Holosiivskii", "Desnyanskii", "Shevchenkovskii"]}
+                    name="district"
+                    onchange={(e) => handleChange(e, "paymentMethod")}
+                  />
+                  <FormInput
+                    label="ZIP"
+                    wrapperClasses="col-3"
+                    placeholder="_ _ _ _ _"
+                    name="zip"
+                    onchange={(e) => handleChange(e, "paymentMethod")}
+                    required
+                  />
+                  <FormInput
+                    wrapperClasses="col-3"
+                    label="Street"
+                    placeholder="Select"
+                    name="street"
+                    onchange={(e) => handleChange(e, "paymentMethod")}
+                    required
+                  />
+                  <FormInput
+                    wrapperClasses="col-3"
+                    label="Individual tax number"
+                    placeholder="_ _ _ _ _ _ _ _"
+                    name="individualTaxNumber"
+                    onchange={(e) => handleChange(e, "paymentMethod")}
+                    required
                   />
                 </div>
               </div>
@@ -163,75 +218,69 @@ const AddBillingMethodPage = () => {
           )}
           {currentStep === 2 && (
             <>
-              <div className="row">
-                <div className="col-3">
-                  <label className="form-label">Country</label>
-                  <select className="form-select">
-                    {countries.map((option) => (
-                      <option
-                        key={option.code}
-                        value={option.name}
-                        selected={option.name === "Ukraine" && option.name}
-                      >
-                        {option.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col-3">
-                  <label className="form-label">City(region)</label>
-                  <select className="form-select">
-                    <option value="kyiv" selected>
-                      Kyiv
-                    </option>
-                    <option value="lviv">Lviv</option>
-                    <option value="odessa">Odessa</option>
-                  </select>
-                </div>
-                <div className="col-3">
-                  <label className="form-label">District</label>
-                  <select className="form-select">
-                    <option value="pecherski">Pecherski</option>
-                    <option value="golosievski">Golosievski</option>
-                    <option value="shevchenkovski" selected>
-                      Shevchenkovski
-                    </option>
-                  </select>
-                </div>
-                <div className="col-3">
-                  <label className="form-label">ZIP</label>
-                  <input
-                    className="form-control"
-                    type="text"
+              <div className="form-card form-card-1">
+                <div className="row mb-3">
+                  <FormSelect
+                    wrapperClasses="col-3"
+                    label="Country"
+                    options={["Ukraine", "Denmark", "Japan"]}
+                    name="country"
+                    onchange={(e) => handleChange(e, "bankOfBeneficiary")}
+                    required
+                  />
+                  <FormSelect
+                    wrapperClasses="col-3"
+                    label="City (region)"
+                    options={["Kyiv", "Odessa", "Lviv"]}
+                    name="cityRegion"
+                    onchange={(e) => handleChange(e, "bankOfBeneficiary")}
+                    required
+                  />
+                  <FormSelect
+                    wrapperClasses="col-3"
+                    label="District"
+                    options={["Holosiivskii", "Desnyanskii", "Shevchenkovskii"]}
+                    name="district"
+                    onchange={(e) => handleChange(e, "bankOfBeneficiary")}
+                  />
+                  <FormInput
+                    label="ZIP"
+                    wrapperClasses="col-3"
                     placeholder="_ _ _ _ _"
+                    name="zip"
+                    onchange={(e) => handleChange(e, "bankOfBeneficiary")}
+                    required
                   />
                 </div>
-              </div>
-              <div className="row mt-5">
-                <div className="col-3">
-                  <label className="form-label">Settlement</label>
-                  <input className="form-control" type="text" placeholder="" />
-                </div>
-                <div className="col-3">
-                  <label className="form-label">Street</label>
-                  <input className="form-control" type="text" placeholder="" />
-                </div>
-                <div className="col-3">
-                  <label className="form-label">SWIFT</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    placeholder="__ __ __ __"
-                    value="KJHGFRSD"
+                <div className="row mb-3">
+                  <FormInput
+                    wrapperClasses="col-3"
+                    label="Settlment"
+                    placeholder="Select"
+                    name="settlement"
+                    onchange={(e) => handleChange(e, "bankOfBeneficiary")}
                   />
-                </div>
-                <div className="col-3">
-                  <label className="form-label">IBAN</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    placeholder="__ __ __ __"
-                    value="UA9876423164420953"
+                  <FormInput
+                    wrapperClasses="col-3"
+                    label="Street"
+                    placeholder="Select"
+                    name="street"
+                    onchange={(e) => handleChange(e, "bankOfBeneficiary")}
+                    required
+                  />
+                  <FormInput
+                    wrapperClasses="col-3"
+                    label="SWIFT"
+                    placeholder="KJHGFRSD"
+                    name="swift"
+                    onchange={(e) => handleChange(e, "bankOfBeneficiary")}
+                  />
+                  <FormInput
+                    wrapperClasses="col-3"
+                    label="IBAN"
+                    placeholder="UA9876423164420953"
+                    name="iban"
+                    onchange={(e) => handleChange(e, "bankOfBeneficiary")}
                   />
                 </div>
               </div>
@@ -239,84 +288,86 @@ const AddBillingMethodPage = () => {
           )}
           {currentStep === 3 && (
             <>
-              <div className="row">
-                <div className="col-3">
-                  <label className="form-label">Country</label>
-                  <select className="form-select">
-                    {countries.map((option) => (
-                      <option
-                        key={option.code}
-                        value={option.name}
-                        selected={option.name === "Ukraine" && option.name}
-                      >
-                        {option.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col-3">
-                  <label className="form-label">City(region)</label>
-                  <select className="form-select">
-                    <option value="kyiv" selected>
-                      Kyiv
-                    </option>
-                    <option value="lviv">Lviv</option>
-                    <option value="odessa">Odessa</option>
-                  </select>
-                </div>
-                <div className="col-3">
-                  <label className="form-label">District</label>
-                  <select className="form-select">
-                    <option value="pecherski">Pecherski</option>
-                    <option value="golosievski">Golosievski</option>
-                    <option value="shevchenkovski" selected>
-                      Shevchenkovski
-                    </option>
-                  </select>
-                </div>
-                <div className="col-3">
-                  <label className="form-label">ZIP</label>
-                  <input
-                    className="form-control"
-                    type="text"
+              <div className="form-card form-card-1">
+                <div className="row mb-3">
+                  <FormSelect
+                    wrapperClasses="col-3"
+                    label="Country"
+                    options={["Ukraine", "Denmark", "Japan"]}
+                    name="country"
+                    onchange={(e) => handleChange(e, "correspondentBank")}
+                    required
+                  />
+                  <FormSelect
+                    wrapperClasses="col-3"
+                    label="City (region)"
+                    options={["Kyiv", "Odessa", "Lviv"]}
+                    name="cityRegion"
+                    onchange={(e) => handleChange(e, "correspondentBank")}
+                    required
+                  />
+                  <FormSelect
+                    wrapperClasses="col-3"
+                    label="District"
+                    options={["Holosiivskii", "Desnyanskii", "Shevchenkovskii"]}
+                    name="district"
+                    onchange={(e) => handleChange(e, "correspondentBank")}
+                  />
+                  <FormInput
+                    label="ZIP"
+                    wrapperClasses="col-3"
                     placeholder="_ _ _ _ _"
+                    name="zip"
+                    onchange={(e) => handleChange(e, "correspondentBank")}
+                    required
                   />
                 </div>
-              </div>
-              <div className="row mt-5">
-                <div className="col-3">
-                  <label className="form-label">Settlement</label>
-                  <input className="form-control" type="text" placeholder="" />
-                </div>
-                <div className="col-3">
-                  <label className="form-label">Street</label>
-                  <input className="form-control" type="text" placeholder="" />
+                <div className="row mb-3">
+                  <FormInput
+                    label="Settlment"
+                    wrapperClasses="col-3"
+                    placeholder="Input"
+                    name="settlement"
+                    onchange={(e) => handleChange(e, "correspondentBank")}
+                  />
+                  <FormSelect
+                    label="Street"
+                    wrapperClasses="col-3"
+                    options={["Saksaganskogo", "Zhilyanskaya"]}
+                    name="street"
+                    onchange={(e) => handleChange(e, "correspondentBank")}
+                    required
+                  />
                 </div>
               </div>
             </>
           )}
           <div className="form-actions">
             <Button
-              value="prev"
-              icon={chevronLeftIcon}
               color="primary"
-              type="button"
               outline
-              onclick={(e) => handleSteps(e)}
-              disabled={currentStep === 1 && true}
+              value="Prev"
+              icon={chevronLeftIcon}
+              onclick={stepHandler}
+              disabled={currentStep === 1}
             />
             <Button
-              value="next"
-              icon={chevronRightIcon}
-              type="button"
               color="primary"
-              onclick={(e) => handleSteps(e)}
+              value={currentStep < step.length ? "Next" : "Add method"}
+              icon={chevronRightIcon}
+              onclick={(e) => {
+                e.preventDefault();
+                currentStep < step.length
+                  ? stepHandler(e)
+                  : console.log(newPaymentMethod);
+                checkIfRequiredFieldsFilled();
+              }}
+              disabled={requiredFilled}
               reversed
             />
           </div>
         </form>
       </div>
-      <div className="card-bottom"></div>
     </div>
   );
 };

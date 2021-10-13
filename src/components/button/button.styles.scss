@@ -1,13 +1,7 @@
 @import "../../assets/styles/colors.vars.scss";
 
-@mixin button(
-  $state,
-  $clr-main,
-  $clr-hover-active,
-  $clr-disabled
-) {
-  
-    .button-#{$state} {
+@mixin button($state, $clr-main, $clr-hover-active, $clr-disabled) {
+  .button-#{$state} {
     color: $clr-white;
     background-color: $clr-main;
     border: none;
@@ -32,9 +26,9 @@
 
       &:hover,
       &:active {
-          color: $clr-hover-active;
-          background-color: $clr-white;
-          border-color: $clr-hover-active;
+        color: $clr-hover-active;
+        background-color: $clr-white;
+        border-color: $clr-hover-active;
       }
     }
   }
@@ -50,7 +44,8 @@
   text-transform: uppercase;
   font-family: "Montserrat", sans-serif;
   border-radius: 4px;
-  border: 2px solid $clr-black;
+  border-width: 2px;
+  border-style: solid;
   outline: none;
   font-weight: 700;
   font-size: 16px;
@@ -59,11 +54,12 @@
   cursor: poiner;
   text-decoration: none;
 
-  &:disabled, &:hover:disabled {
+  &:disabled,
+  &:hover:disabled {
     background-color: $clr-disabled;
     border-color: $clr-disabled;
     color: $clr-white;
-    
+
     & > div {
       opacity: 0.5;
     }
@@ -88,6 +84,16 @@
   }
 }
 
-@include button("success", $clr-primary-main, $clr-primary-hover, $clr-disabled);
-@include button("secondary", $clr-secondary-main, $clr-secondary-hover, $clr-disabled);
+@include button(
+  "success",
+  $clr-primary-main,
+  $clr-primary-hover,
+  $clr-disabled
+);
+@include button(
+  "secondary",
+  $clr-secondary-main,
+  $clr-secondary-hover,
+  $clr-disabled
+);
 @include button("error", $clr-error-main, $clr-error-hover, $clr-disabled);

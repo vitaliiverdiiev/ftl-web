@@ -1,6 +1,9 @@
+@import "../../assets/styles/colors.vars.scss";
+@import "../../assets/styles/fonts.styles.scss";
+
 div.card {
   margin: 15px;
-  min-height: 80vh;
+  height: 80vh;
   padding: 0;
   background-color: #fff;
 
@@ -36,7 +39,6 @@ div.card {
     align-items: center;
     padding: 25px 20px;
     background-color: #fff;
-    color: #b6b6b6;
 
     &--active {
       color: #1c1c1c;
@@ -60,16 +62,27 @@ div.card {
     }
 
     &-title {
+      //   width: fit-content;
     }
   }
 }
 
-form.form {
+.form {
+  padding: 15px 30px;
   font-family: "Fira Sans", sans-serif;
-}
 
-.form-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  &-header {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 18px;
+    margin-bottom: 24px;
+  }
+
+  &-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 32px;
+  }
 }
