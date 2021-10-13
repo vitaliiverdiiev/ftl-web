@@ -121,6 +121,7 @@ const AddBillingMethodPage = (props) => {
       </div>
       <div className="card-body">
         <form action="#">
+          <h3 className="form-header">{step[currentStep - 1].stepTitle}</h3>
           {currentStep === 1 && (
             <>
               <div className="form-card form-card-1">
