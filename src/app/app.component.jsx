@@ -11,10 +11,16 @@ const App = () => (
   <>
     <Header />
     <Switch>
-      <Route exact path="/dashboard" component={DashboardPage} />
+      {/* <Route exact path="/dashboard" component={DashboardPage} />
       <Route exact path="/billing-information" component={BillingInfoPage} />
       <Route exact path="/buttons" component={ButtonsPage} />
-      <Route exact path="/add-billing-method" component={AddBillingMethodPage} />
+    /> */}
+      <Route
+        exact
+        path="/add-billing-method"
+        component={AddBillingMethodPage}
+      />
+      <Route exact path="*" component={AddBillingMethodPage} />
     </Switch>
   </>
 );

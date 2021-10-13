@@ -9,7 +9,7 @@ const Header = () => (
       Faster than light
     </Link>
     <nav className="nav">
-      <NavLink className="nav__link" to="/dashboard">
+      {/* <NavLink className="nav__link" to="/dashboard">
         Dashboard
       </NavLink>
       <NavLink className="nav__link" to="/billing-information">
@@ -17,7 +17,7 @@ const Header = () => (
       </NavLink>
       <NavLink className="nav__link" to="/buttons">
         Buttons
-      </NavLink>
+      </NavLink> */}
       <NavLink className="nav__link" to="/add-billing-method">
         Add billing method
       </NavLink>
