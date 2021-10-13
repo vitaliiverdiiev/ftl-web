@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/ftl-web/static/css/main.8ef337af.chunk.css",
-    "main.js": "/ftl-web/static/js/main.9d875059.chunk.js",
-    "main.js.map": "/ftl-web/static/js/main.9d875059.chunk.js.map",
+    "main.css": "/ftl-web/static/css/main.3916e368.chunk.css",
+    "main.js": "/ftl-web/static/js/main.a444e88a.chunk.js",
+    "main.js.map": "/ftl-web/static/js/main.a444e88a.chunk.js.map",
     "runtime-main.js": "/ftl-web/static/js/runtime-main.ecd610f6.js",
     "runtime-main.js.map": "/ftl-web/static/js/runtime-main.ecd610f6.js.map",
     "static/css/2.341f25e2.chunk.css": "/ftl-web/static/css/2.341f25e2.chunk.css",
-    "static/js/2.42475e63.chunk.js": "/ftl-web/static/js/2.42475e63.chunk.js",
-    "static/js/2.42475e63.chunk.js.map": "/ftl-web/static/js/2.42475e63.chunk.js.map",
+    "static/js/2.ac97c4cc.chunk.js": "/ftl-web/static/js/2.ac97c4cc.chunk.js",
+    "static/js/2.ac97c4cc.chunk.js.map": "/ftl-web/static/js/2.ac97c4cc.chunk.js.map",
     "index.html": "/ftl-web/index.html",
     "static/css/2.341f25e2.chunk.css.map": "/ftl-web/static/css/2.341f25e2.chunk.css.map",
-    "static/css/main.8ef337af.chunk.css.map": "/ftl-web/static/css/main.8ef337af.chunk.css.map",
-    "static/js/2.42475e63.chunk.js.LICENSE.txt": "/ftl-web/static/js/2.42475e63.chunk.js.LICENSE.txt",
+    "static/css/main.3916e368.chunk.css.map": "/ftl-web/static/css/main.3916e368.chunk.css.map",
+    "static/js/2.ac97c4cc.chunk.js.LICENSE.txt": "/ftl-web/static/js/2.ac97c4cc.chunk.js.LICENSE.txt",
     "static/media/font-awesome.css": "/ftl-web/static/media/fontawesome-webfont.f691f37e.woff"
   },
   "entrypoints": [
     "static/js/runtime-main.ecd610f6.js",
     "static/css/2.341f25e2.chunk.css",
-    "static/js/2.42475e63.chunk.js",
-    "static/css/main.8ef337af.chunk.css",
-    "static/js/main.9d875059.chunk.js"
+    "static/js/2.ac97c4cc.chunk.js",
+    "static/css/main.3916e368.chunk.css",
+    "static/js/main.a444e88a.chunk.js"
   ]
 }
